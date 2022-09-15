@@ -5,3 +5,10 @@ const gameBoard = (function() {
 
     };
 })();
+
+const gameController = (function() {
+
+    return {
+
+    };
+})();
