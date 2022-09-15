@@ -33,8 +33,9 @@ const gameBoard = (function() {
 })();
 
 const displayController = (function() {
-
+    const gameBoardDOM = document.getElementById("gameBoard");
+    let spots = gameBoardDOM.children;
     return {
-
+        
     };
 })();
