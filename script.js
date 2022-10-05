@@ -85,3 +85,9 @@ displayController.setDOMSpot(8, "O");
 displayController.addEventListeners();
 
 gameController.setSpot(4, "O");
+
+const playerFactory = (letter) => {
+    return {
+        letter
+    };
+};
