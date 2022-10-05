@@ -60,6 +60,7 @@ const displayController = (function() {
             spots[i].addEventListener("click", function() {
                 gameController.setSpot(i, currentPlayer.letter);
                 spots[i].textContent = gameBoard.getBoardSpot(i);
+                gameController.switchPlayers();
             });
         }
     }
@@ -77,8 +78,17 @@ const gameController = (function() {
         displayController.setDOMSpot(spot, letter);
     }
 
+    function switchPlayers() {
+        if (currentPlayer === playerX) {
+            currentPlayer = playerO;
+        } else {
+            currentPlayer = playerX;
+        }
+    }
+
     return {
-        setSpot: setSpot
+        setSpot: setSpot,
+        switchPlayers: switchPlayers
     }
 })();
 
