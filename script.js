@@ -4,6 +4,7 @@ const gameBoard = (function() {
     // 3 | 4 | 5
     // ---------
     // 6 | 7 | 8
+    // let gameBoard = [];
     let gameBoard = ["X", "O", "X", "X", "O", "O", "X", "X", "O"];
 
     function setBoardSpot(spot, letter) {
@@ -57,7 +58,8 @@ const displayController = (function() {
     function addEventListeners() {
         for (let i = 0; i <= 8; i++) {
             spots[i].addEventListener("click", function() {
-                spots[i].textContent = "X";
+                gameController.setSpot(i, currentPlayer.letter);
+                spots[i].textContent = gameBoard.getBoardSpot(i);
             });
         }
     }
@@ -91,3 +93,7 @@ const playerFactory = (letter) => {
         letter
     };
 };
+
+const playerX = playerFactory("X");
+const playerO = playerFactory("O");
+let currentPlayer = playerX;
