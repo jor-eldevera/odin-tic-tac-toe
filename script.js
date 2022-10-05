@@ -4,16 +4,16 @@ const gameBoard = (function() {
     // 3 | 4 | 5
     // ---------
     // 6 | 7 | 8
-    // let gameBoard = [];
-    let gameBoard = ["X", "O", "X", "X", "O", "O", "X", "X", "O"];
+    let gameBoard = [];
+    // let gameBoard = ["X", "O", "X", "X", "O", "O", "X", "X", "O"];
 
     function setBoardSpot(spot, letter) {
         if (spot < 0 || spot > 8) {
             console.error("setBoardSpot: Spot must be a number between 0-8 inclusive");
         }
 
-        if (letter !== "X" && letter !== "O") {
-            console.error("setBoardSpot: Letter must be X or O");
+        if (letter !== "X" && letter !== "O" && letter !== "_") {
+            console.error("setBoardSpot: Letter must be X or O or _ for a blank space");
         }
 
         gameBoard[spot] = letter;
@@ -43,7 +43,7 @@ const displayController = (function() {
             return;
         }
 
-        if (letter !== "X" && letter !== "O") {
+        if (letter !== "X" && letter !== "O" && letter !== "_") {
             console.error("setDOMSpot: Letter must be X or O. Letter is " + letter);
             return;
         }
@@ -86,17 +86,21 @@ const gameController = (function() {
         }
     }
 
+    function newGame() {
+        for (let i = 0; i <= 8; i++) {
+            gameBoard.setBoardSpot(i, "_");
+            displayController.setDOMSpot(i, "_");
+        }
+    }
+
     return {
         setSpot: setSpot,
-        switchPlayers: switchPlayers
+        switchPlayers: switchPlayers,
+        newGame: newGame
     }
 })();
 
-displayController.setDOMSpot(1, "X");
-displayController.setDOMSpot(8, "O");
 displayController.addEventListeners();
-
-gameController.setSpot(4, "O");
 
 const playerFactory = (letter) => {
     return {
@@ -107,3 +111,8 @@ const playerFactory = (letter) => {
 const playerX = playerFactory("X");
 const playerO = playerFactory("O");
 let currentPlayer = playerX;
+
+const newGameButton = document.getElementById("newGame");
+newGameButton.addEventListener("click", function() {
+    gameController.newGame();
+});
