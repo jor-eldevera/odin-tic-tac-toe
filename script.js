@@ -95,10 +95,21 @@ const gameController = (function() {
         }
     }
 
+    // Returns true if spot is filled
+    function spotIsFilled(spot) {
+        const letter = gameBoard.getBoardSpot(spot);
+        if (letter !== "_") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     return {
         setSpot: setSpot,
         switchPlayers: switchPlayers,
-        newGame: newGame
+        newGame: newGame,
+        spotIsFilled: spotIsFilled
     }
 })();
 
