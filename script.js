@@ -55,6 +55,7 @@ const displayController = (function() {
         }
     }
 
+    // Adds event listeners to each cell
     function addEventListeners() {
         for (let i = 0; i <= 8; i++) {
             spots[i].addEventListener("click", function() {
@@ -86,6 +87,7 @@ const gameController = (function() {
         }
     }
 
+    // Resets the board
     function newGame() {
         for (let i = 0; i <= 8; i++) {
             gameBoard.setBoardSpot(i, "_");
@@ -108,10 +110,12 @@ const playerFactory = (letter) => {
     };
 };
 
+// Create players
 const playerX = playerFactory("X");
 const playerO = playerFactory("O");
 let currentPlayer = playerX;
 
+// New Game button
 const newGameButton = document.getElementById("newGame");
 newGameButton.addEventListener("click", function() {
     gameController.newGame();
