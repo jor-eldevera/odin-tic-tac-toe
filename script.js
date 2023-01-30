@@ -75,10 +75,12 @@ const displayController = (function() {
 })();
 
 const gameController = (function() {
+    let winner;
 
     function setSpot(spot, letter) {
         gameBoard.setBoardSpot(spot, letter);
         displayController.setDOMSpot(spot, letter);
+        checkEndGame();
     }
 
     function switchPlayers() {
@@ -107,7 +109,73 @@ const gameController = (function() {
         }
     }
 
+    // Checks for three in a row or for tie
+    function checkEndGame() {
+        const spot0 = gameBoard.getBoardSpot(0);
+        const spot1 = gameBoard.getBoardSpot(1);
+        const spot2 = gameBoard.getBoardSpot(2);
+        const spot3 = gameBoard.getBoardSpot(3);
+        const spot4 = gameBoard.getBoardSpot(4);
+        const spot5 = gameBoard.getBoardSpot(5);
+        const spot6 = gameBoard.getBoardSpot(6);
+        const spot7 = gameBoard.getBoardSpot(7);
+        const spot8 = gameBoard.getBoardSpot(8);
+
+        // Top row
+        if (spot0 === spot1 && spot1 === spot2 && spot2 === spot0 &&
+            spot0 !== "_" && spot1 !== "_" && spot2 !== "_") {
+            winner = spot0;
+        }
+
+        // Middle row
+        if (spot3 === spot4 && spot4 === spot5 && spot5 === spot3 &&
+            spot3 !== "_" && spot4 !== "_" && spot5 !== "_") {
+            winner = spot3;
+        }
+
+        // Bottom row
+        if (spot6 === spot7 && spot7 === spot8 && spot8 === spot6 &&
+            spot6 !== "_" && spot7 !== "_" && spot8 !== "_") {
+            winner = spot6;
+        }
+
+        // Left column
+        if (spot0 === spot3 && spot3 === spot6 && spot6 === spot0 &&
+            spot0 !== "_" && spot3 !== "_" && spot6 !== "_") {
+            winner = spot0;
+        }
+
+        // Middle column
+        if (spot1 === spot4 && spot4 === spot7 && spot7 === spot1 &&
+            spot1 !== "_" && spot4 !== "_" && spot7 !== "_") {
+            winner = spot1;
+        }
+
+        // Right column
+        if (spot2 === spot5 && spot5 === spot8 && spot8 === spot2 &&
+            spot2!== "_" && spot5 !== "_" && spot8 !== "_") {
+            winner = spot2;
+        }
+
+        // Top left to bottom right diagonal
+        if (spot0 === spot4 && spot4 === spot8 && spot8 === spot0 &&
+            spot0 !== "_" && spot4 !== "_" && spot8 !== "_") {
+            winner = spot0;
+        }
+
+        // Top right to bottom left diagonal
+        if (spot2 === spot4 && spot4 === spot6 && spot6 === spot2 &&
+            spot2 !== "_" && spot4 !== "_" && spot6 !== "_") {
+            winner = spot2;
+        }
+
+        if (winner) {
+            winnerText.innerHTML = "Winner is " + winner + "!";
+        }
+    }
+
     return {
+        winner: winner,
         setSpot: setSpot,
         switchPlayers: switchPlayers,
         newGame: newGame,
@@ -133,3 +201,6 @@ const newGameButton = document.getElementById("newGame");
 newGameButton.addEventListener("click", function() {
     gameController.newGame();
 });
+
+// Winner text
+const winnerText = document.getElementById("winner");
