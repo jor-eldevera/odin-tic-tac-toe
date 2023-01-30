@@ -93,10 +93,18 @@ const gameController = (function() {
 
     // Resets the board
     function newGame() {
+        // Reset board spots
         for (let i = 0; i <= 8; i++) {
             gameBoard.setBoardSpot(i, "_");
             displayController.setDOMSpot(i, "_");
         }
+
+        // Reset winner text
+        winner = undefined;
+        winnerText.innerHTML = "";
+
+        // Reset current player to X
+        currentPlayer = playerX;
     }
 
     // Returns true if spot is filled
@@ -123,54 +131,70 @@ const gameController = (function() {
 
         // Top row
         if (spot0 === spot1 && spot1 === spot2 && spot2 === spot0 &&
-            spot0 !== "_" && spot1 !== "_" && spot2 !== "_") {
+            spotIsFilled(0) && spotIsFilled(1) !== "_" && spotIsFilled(2) !== "_") {
             winner = spot0;
         }
 
         // Middle row
         if (spot3 === spot4 && spot4 === spot5 && spot5 === spot3 &&
-            spot3 !== "_" && spot4 !== "_" && spot5 !== "_") {
+            spotIsFilled(3) && spotIsFilled(4) && spotIsFilled(5)) {
             winner = spot3;
         }
 
         // Bottom row
         if (spot6 === spot7 && spot7 === spot8 && spot8 === spot6 &&
-            spot6 !== "_" && spot7 !== "_" && spot8 !== "_") {
+            spotIsFilled(6) && spotIsFilled(7) && spotIsFilled(8)) {
             winner = spot6;
         }
 
         // Left column
         if (spot0 === spot3 && spot3 === spot6 && spot6 === spot0 &&
-            spot0 !== "_" && spot3 !== "_" && spot6 !== "_") {
+            spotIsFilled(0) && spotIsFilled(3) && spotIsFilled(6)) {
             winner = spot0;
         }
 
         // Middle column
         if (spot1 === spot4 && spot4 === spot7 && spot7 === spot1 &&
-            spot1 !== "_" && spot4 !== "_" && spot7 !== "_") {
+            spotIsFilled(1) && spotIsFilled(4) && spotIsFilled(7)) {
             winner = spot1;
         }
 
         // Right column
         if (spot2 === spot5 && spot5 === spot8 && spot8 === spot2 &&
-            spot2!== "_" && spot5 !== "_" && spot8 !== "_") {
+            spotIsFilled(2) && spotIsFilled(5) && spotIsFilled(8)) {
             winner = spot2;
         }
 
         // Top left to bottom right diagonal
         if (spot0 === spot4 && spot4 === spot8 && spot8 === spot0 &&
-            spot0 !== "_" && spot4 !== "_" && spot8 !== "_") {
+            spotIsFilled(0) && spotIsFilled(4) && spotIsFilled(8)) {
             winner = spot0;
         }
 
         // Top right to bottom left diagonal
         if (spot2 === spot4 && spot4 === spot6 && spot6 === spot2 &&
-            spot2 !== "_" && spot4 !== "_" && spot6 !== "_") {
+            spotIsFilled(2) && spotIsFilled(4) && spotIsFilled(6)) {
             winner = spot2;
         }
 
+        // Check for cat's game
+        let allSpotsAreFilled = true;
+        for (let i = 0; i < 9; i++) {
+            if (!spotIsFilled(i)) {
+                allSpotsAreFilled = false;
+            }
+        }
+        if (allSpotsAreFilled) {
+            winner = "C";
+        }
+
+        // If someone wins set the winner text
         if (winner) {
-            winnerText.innerHTML = "Winner is " + winner + "!";
+            if (winner = "C") {
+                winnerText.innerHTML = "Cat's game!";
+            } else {
+                winnerText.innerHTML = "Winner is " + winner + "!";
+            }
         }
     }
 
