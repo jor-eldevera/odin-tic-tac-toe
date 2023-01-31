@@ -1,5 +1,28 @@
+body {
+    height: 100%;
+    width: 460px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#newGame {
+    margin-bottom: 5px;
+}
+
 #gameBoard {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    width: 450px;
+}
+
+.letterButton {
+    width: 150px;
+    height: 150px;
+    font-size: 30px;
 }
