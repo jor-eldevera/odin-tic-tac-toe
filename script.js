@@ -131,7 +131,7 @@ const gameController = (function() {
 
         // Top row
         if (spot0 === spot1 && spot1 === spot2 && spot2 === spot0 &&
-            spotIsFilled(0) && spotIsFilled(1) !== "_" && spotIsFilled(2) !== "_") {
+            spotIsFilled(0) && spotIsFilled(1) && spotIsFilled(2)) {
             winner = spot0;
         }
 
@@ -179,7 +179,7 @@ const gameController = (function() {
 
         // Check for cat's game
         let allSpotsAreFilled = true;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i <= 8; i++) {
             if (!spotIsFilled(i)) {
                 allSpotsAreFilled = false;
             }
@@ -190,7 +190,7 @@ const gameController = (function() {
 
         // If someone wins set the winner text
         if (winner) {
-            if (winner = "C") {
+            if (winner === "C") {
                 winnerText.innerHTML = "Cat's game!";
             } else {
                 winnerText.innerHTML = "Winner is " + winner + "!";
@@ -199,7 +199,6 @@ const gameController = (function() {
     }
 
     return {
-        winner: winner,
         setSpot: setSpot,
         switchPlayers: switchPlayers,
         newGame: newGame,
