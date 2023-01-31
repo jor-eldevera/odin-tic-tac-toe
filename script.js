@@ -184,7 +184,7 @@ const gameController = (function() {
                 allSpotsAreFilled = false;
             }
         }
-        if (allSpotsAreFilled) {
+        if (allSpotsAreFilled && !winner) {
             winner = "C";
         }
 
