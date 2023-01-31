@@ -86,8 +86,10 @@ const gameController = (function() {
     function switchPlayers() {
         if (currentPlayer === playerX) {
             currentPlayer = playerO;
+            toMoveText.innerHTML = "O to move";
         } else {
             currentPlayer = playerX;
+            toMoveText.innerHTML = "X to move";
         }
     }
 
@@ -105,6 +107,9 @@ const gameController = (function() {
 
         // Reset current player to X
         currentPlayer = playerX;
+
+        // Reset "to move" to "X to move"
+        toMoveText.innerHTML = "X to move";
     }
 
     // Returns true if spot is filled
@@ -227,3 +232,6 @@ newGameButton.addEventListener("click", function() {
 
 // Winner text
 const winnerText = document.getElementById("winner");
+
+// "to move" (whose turn it is) text
+const toMoveText = document.getElementById("toMove");
